@@ -1,5 +1,12 @@
 import streamlit as st
 
+if "high_priority_room" not in st.session_state:
+    st.session_state["high_priority_room"] = {}
+
+if "normal_room" not in st.session_state:
+    st.session_state["normal_room"] = {}
+
+    
 # 1. App Styling & Header
 st.title("🏥 Clinical Patient Priority Queue")
 st.write("Input patient data below to automatically triage rooms and monitor overflow constraints.")
