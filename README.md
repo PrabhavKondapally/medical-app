@@ -40,9 +40,9 @@ While commercial Electronic Health Record (EHR) integrations (like Epic or Cerne
 ## 🚀 How to Use the Simulator
 
 1. Open the [Live Web Application](https://prabhavkondapally-medical-triage.streamlit.app/).
-2. Use the left sidebar to adjust the **Safety Threshold Limit** and **High-Priority Bed Capacity**.
-3. In the main feed, input patient names and dosages separated by commas.
-4. Click **Execute Triage Audit & Route Patients** to see the system process the data and manage room capacities instantly.
+2. In the main feed, input patient names and dosages separated by commas.
+3. Input the **Safety Threshold Limit** and **High-Priority Bed Capacity**.
+4. Click **Run Triage Audit** to see the system process the data and manage room capacities instantly.
 
 ---
 💡 *Created by Prabhav Kondapally as a portfolio project demonstrating an interest in Biomedical Engineering / Computer Science / Digital Health Applications.*
