@@ -40,11 +40,11 @@ if st.button("Run Triage Audit"):
                 # This check now runs perfectly with whole numbers
                 if len(highPriority) >= highPriorMax:
                     overflow_triggered = True
-                    break
+                    continue
                 # Perfect dictionary insertion: Key = Name, Value = Dosage
-                highPriority[patients[i]] = dosages[i]
+                highPriority[i] = [patients[i], dosages[i]]
             else:
-                normal[patients[i]] = dosages[i]
+                normal[i] = [patients[i], dosages[i]]
 
         # 4. UI Outputs: Display results using visual frontend components
         if overflow_triggered:
@@ -52,15 +52,30 @@ if st.button("Run Triage Audit"):
         else:
             st.success("✅ Audit Complete. All patients routed safely.")
             
-            # Split screen into two visual columns
+            st.subheader("🏥 Active Room Status")
+
+            # Create two visual columns on the webpage
             col1, col2 = st.columns(2)
-            
+
             with col1:
-                st.subheader("🔴 High Priority Room")
-                st.write(f"Total Beds Occupied: {len(highPriority)}/{highPriorMax}")
-                st.json(highPriority)  # Will display clean Key-Value pairs!
-                
+                st.write("🔴 **High Priority Room**")
+                if st.session_state["high_priority_room"]:
+                    # Converts the dictionary into a clean table structure
+                    st.dataframe(
+                        st.session_state["high_priority_room"], 
+                        column_config={0: "Patient Name", 1: "Dosage (mg)"},
+                        use_container_width=True
+                    )
+                else:
+                    st.info("Room is currently empty.")
+
             with col2:
-                st.subheader("🟢 Normal Room")
-                st.write(f"Total Patients: {len(normal)}")
-                st.json(normal)
+                st.write("🟢 **Normal Room**")
+                if st.session_state["normal_room"]:
+                    st.dataframe(
+                        st.session_state["normal_room"], 
+                        column_config={0: "Patient Name", 1: "Dosage (mg)"},
+                        use_container_width=True
+                    )
+                else:
+                    st.info("Room is currently empty.")
