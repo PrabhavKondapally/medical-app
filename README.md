@@ -43,6 +43,8 @@ While commercial Electronic Health Record (EHR) integrations (like Epic or Cerne
 2. In the main feed, input patient names and dosages separated by commas.
 3. Input the **Safety Threshold Limit** and **High-Priority Bed Capacity**.
 4. Click **Run Triage Audit** to see the system process the data and manage room capacities instantly.
+5. If needed, you have the option to download the room data as a CSV
+6. You can also edit a patient's dosage
 
 ---
 💡 *Created by Prabhav Kondapally as a portfolio project demonstrating an interest in Biomedical Engineering / Computer Science / Digital Health Applications.*
