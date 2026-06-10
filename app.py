@@ -5,11 +5,12 @@ st.title("🏥 Clinical Patient Priority Queue")
 st.write("Input patient data below to automatically triage rooms and monitor overflow constraints.")
 
 # 2. UI Inputs: Let the user type names and dosages directly on the webpage
-# We use commas to separate the inputs, just like a CSV file
 patients_input = st.text_input("Enter Patient Names (separated by commas):", "Alice, Bob, Charlie, David")
 dosages_input = st.text_input("Enter Prescribed Dosages in mg (separated by commas):", "600, 120, 700, 900")
 safety_input = st.number_input("Set Safety Threshold Limit (mg):", min_value=0, value=500, step=50)
-highPriorityMax_input = st.number_input("Enter the # of beds in the High Priority Room", min_value=0, step=1)
+
+# FIX: Wrapped in int() to ensure capacity is always a whole number, not a decimal
+highPriorityMax_input = int(st.number_input("Enter the # of beds in the High Priority Room", min_value=0, step=1, value=2))
 
 # 3. Action Button
 if st.button("Run Triage Audit"):
@@ -28,20 +29,22 @@ if st.button("Run Triage Audit"):
         st.error(f"Configuration Error! Mismatched Records. Patients: {len(patients)}, Dosages: {len(dosages)}")
     else:
         # --- Your Core Triage Architecture ---
-        highPriority = []
+        highPriority = {}  # Perfect: Now a dictionary
         highPriorMax = highPriorityMax_input
-        normal = []
+        normal = {}        # Perfect: Now a dictionary
         safety = safety_input
         overflow_triggered = False
 
         for i in range(len(patients)):
             if dosages[i] > safety:
+                # This check now runs perfectly with whole numbers
                 if len(highPriority) >= highPriorMax:
                     overflow_triggered = True
                     break
-                highPriority.append(f"{patients[i]} ({dosages[i]}mg)")
+                # Perfect dictionary insertion: Key = Name, Value = Dosage
+                highPriority[patients[i]] = dosages[i]
             else:
-                normal.append(f"{patients[i]} ({dosages[i]}mg)")
+                normal[patients[i]] = dosages[i]
 
         # 4. UI Outputs: Display results using visual frontend components
         if overflow_triggered:
@@ -55,7 +58,7 @@ if st.button("Run Triage Audit"):
             with col1:
                 st.subheader("🔴 High Priority Room")
                 st.write(f"Total Beds Occupied: {len(highPriority)}/{highPriorMax}")
-                st.json(highPriority)
+                st.json(highPriority)  # Will display clean Key-Value pairs!
                 
             with col2:
                 st.subheader("🟢 Normal Room")
