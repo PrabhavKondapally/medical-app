@@ -5,7 +5,7 @@
 ---
 
 ## 📌 Project Overview
-This project is an interactive, data-driven web application designed to simulate hospital capacity management and clinical dosage safety auditing. Built using **Python** and **Streamlit**, the simulator models real-world healthcare operational challenges by automatically routing incoming patients into optimized care facilities based on dynamic safety thresholds and strict room/bed constraints.
+This project is an interactive web application designed to simulate hospital capacity management and clinical dosage safety auditing. Built using **Python** and **Streamlit**, the simulator models real-world healthcare operational challenges by automatically routing incoming patients into optimized care facilities based on dynamic safety thresholds and strict room/bed constraints.
 
 I engineered this project to explore the intersection of **Computer Science and Healthcare**, specifically studying how software logic can prevent emergency department overcrowding, mitigate clinical risk, and automate administrative workflows for triage nurses.
 
