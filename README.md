@@ -1,11 +1,11 @@
 # 🏥 Clinical Patient Priority Queue & Triage Simulator
 
-### 🌐 [Click Here to View the Live Web Application]([https://YOUR-CUSTOM-URL.streamlit.app](https://prabhavkondapally-medical-triage.streamlit.app/))
+### 🌐 [Click Here to View the Live Web Application](https://prabhavkondapally-medical-triage.streamlit.app/)
 
 ---
 
 ## 📌 Project Overview
-This project is an interactive web application designed to simulate hospital capacity management and clinical dosage safety auditing. Built using **Python** and **Streamlit**, the simulator models real-world healthcare operational challenges by automatically routing incoming patients into optimized care facilities based on dynamic safety thresholds and strict room/bed constraints.
+This project is an interactive, data-driven web application designed to simulate hospital capacity management and clinical dosage safety auditing. Built using **Python** and **Streamlit**, the simulator models real-world healthcare operational challenges by automatically routing incoming patients into optimized care facilities based on dynamic safety thresholds and strict room/bed constraints.
 
 I engineered this project to explore the intersection of **Computer Science and Healthcare**, specifically studying how software logic can prevent emergency department overcrowding, mitigate clinical risk, and automate administrative workflows for triage nurses.
 
@@ -37,10 +37,12 @@ While commercial Electronic Health Record (EHR) integrations (like Epic or Cerne
 
 ---
 
-## 🚀 How to Run locally
+## 🚀 How to Use the Simulator
 
-If you would like to run this simulation repository on your local machine:
+1. Open the [Live Web Application](https://prabhavkondapally-medical-triage.streamlit.app/).
+2. Use the left sidebar to adjust the **Safety Threshold Limit** and **High-Priority Bed Capacity**.
+3. In the main feed, input patient names and dosages separated by commas.
+4. Click **Execute Triage Audit & Route Patients** to see the system process the data and manage room capacities instantly.
 
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/](https://github.com/)[YOUR-GITHUB-USERNAME]/[YOUR-REPO-NAME].git
+---
+💡 *Created by Prabhav Kondapally as a portfolio project demonstrating an interest in Biomedical Engineering / Computer Science / Digital Health Applications.*
