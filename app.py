@@ -1,5 +1,21 @@
 import streamlit as st
 
+main_page = st.Page("app.py", title="Main Dashboard", icon="📊", default=True)
+triage_page = st.Page("pages/1_Patient_Triage.py", title="Patient Triage", icon="📋")
+review_page = st.Page("pages/2_Chart_Review.py", title="Chart Review", icon="🔍")
+
+# Pass them into the navigation layout
+pg = st.navigation([main_page, triage_page, review_page])
+
+# Run the navigation system (This replaces the old page_config)
+st.set_page_config(
+    page_title="CliniForge Triage", 
+    page_icon="cliniforge_logo.png", 
+    layout="wide"
+)
+
+pg.run()
+
 def rearrange(hpRoom, normRoom, safety_threshold, bed_limit):
     # 1. Move from High Priority to Normal
     pat_ids_to_move_to_norm = []
@@ -21,13 +37,6 @@ def rearrange(hpRoom, normRoom, safety_threshold, bed_limit):
             hpRoom[patID] = normRoom.pop(patID)
         else:
             break
-
-# 1. Page Configuration
-st.set_page_config(
-    page_title="CliniForge Triage", 
-    page_icon="cliniforge_logo.png", 
-    layout="wide"
-)
 
 # Initialize global room states so they persist across pages
 if "high_priority_room" not in st.session_state:
