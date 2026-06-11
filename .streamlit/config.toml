@@ -1,0 +1,15 @@
+[theme]
+# The primary accent color (for active sliders, buttons, links)
+primaryColor = "#0057B8"
+
+# The main background of the app (clean, soft white/grey to prevent eye strain)
+backgroundColor = "#F8FAFC"
+
+# The background color for the sidebar and data cards
+secondaryBackgroundColor = "#FFFFFF"
+
+# The main text color (Deep Slate for crisp readability)
+textColor = "#0F172A"
+
+# Font family
+font = "sans serif"

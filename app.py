@@ -1,5 +1,21 @@
 import streamlit as st
 
+# Inject custom CSS to load and apply the Inter font
+st.markdown(
+    """
+    <style>
+    /* Import Inter font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    /* Force the entire app to use Inter */
+    html, body, [class*="css"], .stMarkdown, p, label, span {
+        font-family: 'Inter', sans-serif !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.set_page_config(
     page_title="CliniForge Triage", 
     page_icon="cliniforge_logo.png", 
