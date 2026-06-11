@@ -22,7 +22,23 @@ st.set_page_config(
     layout="wide"
 )
 
-st.image("cliniforge_logo.png", width=100)
+# 1. Create two columns at the top of your page
+# The [1, 4] ratio makes the logo column narrow and the text column wide
+col1, col2 = st.columns([1, 4])
+
+with col1:
+    # Display your medical cross logo
+    st.image("cliniforge_logo.png", width=90)
+
+with col2:
+    # Add a bit of vertical spacing so the text aligns with the middle of the logo
+    st.markdown("<div style='padding-top: 15px;'></div>", unsafe_allow_html=True)
+    
+    # Display your newly created two-tone CliniForge text banner
+    st.image("CliniForgeBanner.png", width=350)
+
+# Add a thin horizontal divider line underneath your brand-new header
+st.divider()
 
 def rearrange(hpRoom, normRoom, safety_threshold, bed_limit):
     # 1. Move from High Priority to Normal (No capacity limit to worry about here)
