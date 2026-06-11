@@ -7,6 +7,9 @@ st.set_page_config(
     layout="wide"
 )
 
+st.sidebar.image("cliniforge_logo.png", use_container_width=True)
+st.sidebar.markdown("<br>", unsafe_allow_html=True)
+
 # 2. Re-import your font styles so it matches
 st.markdown(
     """

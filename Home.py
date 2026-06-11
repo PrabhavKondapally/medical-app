@@ -22,6 +22,9 @@ st.set_page_config(
     layout="wide"
 )
 
+st.sidebar.image("cliniforge_logo.png", use_container_width=True)
+st.sidebar.markdown("<br>", unsafe_allow_html=True)
+
 # 1. Creating two columns at the top of your page
 # The [1, 4] ratio makes the logo column narrow and the text column wide
 col1, col2 = st.columns([1, 4])
