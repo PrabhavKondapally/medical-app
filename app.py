@@ -1,6 +1,13 @@
 import streamlit as st
 
-# Inject custom CSS to load and apply the Inter font
+# 1. This MUST be the absolute first Streamlit command in the file
+st.set_page_config(
+    page_title="CliniForge Triage", 
+    page_icon="cliniforge_logo.png", 
+    layout="wide"
+)
+
+# 2. Inject custom CSS to load and apply the Inter font
 st.markdown(
     """
     <style>
@@ -16,30 +23,52 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.set_page_config(
-    page_title="CliniForge Triage", 
-    page_icon="cliniforge_logo.png", 
-    layout="wide"
-)
+# 3. Initialize the navigation state tracker
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "Dashboard"
 
-st.sidebar.title("CliniForge Navigation")
+# 4. Create Sidebar Navigation System
+st.sidebar.markdown("# 🏥 CliniForge")
+st.sidebar.markdown("---")
 
-# --- SIDEBAR CONFIGURATION ---
-st.sidebar.markdown("# 🏥 CliniForge Navigation")
-st.sidebar.markdown("---")  # Adds a clean visual divider line
+# Navigation Buttons
+if st.sidebar.button("📊 Main Dashboard", use_container_width=True):
+    st.session_state.current_page = "Dashboard"
 
-# App Description/Context for Admissions Officers
-st.sidebar.info(
-    """
-    **Clinical Triage & Chart Review System**
-    
-    This platform automates patient data ingestion, prioritization, and chart analysis to optimize clinical workflows.
-    """
-)
+if st.sidebar.button("📋 Patient Triage", use_container_width=True):
+    st.session_state.current_page = "Triage"
+
+if st.sidebar.button("🔍 Chart Review", use_container_width=True):
+    st.session_state.current_page = "Charts"
 
 st.sidebar.markdown("---")
-# You can add interactive widgets here later (like filtering options or status trackers)
 st.sidebar.caption("v1.0.0 | Built for Admissions Review")
+
+
+# 5. Render Page Content based on which button is clicked
+if st.session_state.current_page == "Dashboard":
+    st.title("Main Dashboard")
+    st.write("---")
+    # ----------------------------------------------------
+    # PASTE YOUR ORIGINAL MAIN DASHBOARD CODE RIGHT HERE
+    # ----------------------------------------------------
+    st.write("Your metrics, graphs, and main data visualizations go here.")
+
+elif st.session_state.current_page == "Triage":
+    st.title("Patient Triage System")
+    st.write("---")
+    # ----------------------------------------------------
+    # PASTE YOUR TRIAGE PAGE CODE RIGHT HERE
+    # ----------------------------------------------------
+    st.write("Your triage intake forms, prioritization tables, or logic go here.")
+
+elif st.session_state.current_page == "Charts":
+    st.title("Clinical Chart Review")
+    st.write("---")
+    # ----------------------------------------------------
+    # PASTE YOUR CHART REVIEW CODE RIGHT HERE
+    # ----------------------------------------------------
+    st.write("Your AI summaries, chart analyses, or patient histories go here.")
 
 # 1. Creating two columns at the top of your page
 # The [1, 4] ratio makes the logo column narrow and the text column wide
