@@ -2,10 +2,9 @@ import streamlit as st
 
 st.title("📋 Patient Triage System")
 st.write("---")
-
 st.header("📥 Patient Data Input")
 
-# Dynamic Input Fields
+# Input fields for patient intake
 names_raw = st.text_input(
     "Enter Patient Names (separated by commas)", 
     value="Alice, Bob, Charlie, David, Eve"
@@ -15,14 +14,14 @@ dosages_raw = st.text_input(
     value="600, 120, 750, 400, 95"
 )
 
-# Configuration fields
+# Room safety and capacity parameters
 col_config_1, col_config_2 = st.columns(2)
 with col_config_1:
     safety_threshold = st.number_input("Safety Threshold (mg)", min_value=0.0, value=500.0, step=10.0)
 with col_config_2:
     bed_limit = st.number_input("High Priority Bed Limit", min_value=1, value=2, step=1)
 
-# Processing Processing Action
+# Triage execution logic
 if st.button("Run Patient Triage Audit"):
     patients = [name.strip() for name in names_raw.split(",") if name.strip()]
     
@@ -33,9 +32,9 @@ if st.button("Run Patient Triage Audit"):
         st.stop()
 
     if len(patients) != len(dosages):
-        st.error(f"❌ Mismatch Error: You entered {len(patients)} names but {len(dosages)} dosages. They must match.")
+        st.error(f"❌ Mismatch Error: You entered {len(patients)} names but {len(dosages)} dosages.")
     else:
-        # Clear states for clean generation session
+        # Clear room assignments before computing fresh audit data
         st.session_state["high_priority_room"] = {}
         st.session_state["normal_room"] = {}
         
@@ -50,10 +49,10 @@ if st.button("Run Patient Triage Audit"):
             else:
                 st.session_state["normal_room"][patient_id] = [patients[i], dosages[i]]
                 
-        st.success("✅ Triage processing complete! Navigate to the Main Dashboard to view active room layouts.")
+        st.success("✅ Triage processing complete! Navigate to the Main Dashboard to view allocations.")
 
-# 4. CUSTOM PAGE FOOTER 
-st.markdown("<br><br><br><br>", unsafe_allow_html=True) # Adds whitespace buffer before footer
+# Page branding footer
+st.markdown("<br><br><br><br>", unsafe_allow_html=True)
 st.divider()
 foot_col1, foot_col2 = st.columns([1, 5])
 with foot_col1:

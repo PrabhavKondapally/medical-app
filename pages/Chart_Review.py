@@ -5,10 +5,8 @@ st.write("---")
 
 st.info("Medical chart AI summaries and electronic health record (EHR) validation toolsets will load here.")
 
-# =========================================================================
-# CUSTOM PAGE FOOTER
-# =========================================================================
-st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True) # Adds whitespace buffer before footer
+# Page branding footer
+st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
 st.divider()
 foot_col1, foot_col2 = st.columns([1, 5])
 with foot_col1:
