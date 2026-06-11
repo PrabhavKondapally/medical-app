@@ -25,11 +25,11 @@ if st.button("Run Patient Triage Audit"):
     try:
         dosages = [float(dose.strip()) for dose in dosages_raw.split(",") if dose.strip()]
     except ValueError:
-        st.error("❌ Error: Please ensure all dosages entered are valid numbers.")
+        st.error("Error: Please ensure all dosages entered are valid numbers.")
         st.stop()
 
     if len(patients) != len(dosages):
-        st.error(f"❌ Mismatch Error: You entered {len(patients)} names but {len(dosages)} dosages.")
+        st.error(f"Mismatch Error: You entered {len(patients)} names but {len(dosages)} dosages.")
     else:
         st.session_state["high_priority_room"] = {}
         st.session_state["normal_room"] = {}
@@ -45,7 +45,7 @@ if st.button("Run Patient Triage Audit"):
             else:
                 st.session_state["normal_room"][patient_id] = [patients[i], dosages[i]]
                 
-        st.success("✅ Triage processing complete! Navigate to the Main Dashboard to view allocations.")
+        st.success("Triage processing complete! Navigate to the Main Dashboard to view allocations.")
 
 # Branding footer
 st.markdown("<br><br><br><br>", unsafe_allow_html=True)

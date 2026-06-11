@@ -108,16 +108,16 @@ with st.form("override_form", clear_on_submit=True):
             found = True
             
         if found:
-            st.success(f"✅ Patient {target_id} dosage updated to {new_dosage} mg successfully!")
+            st.success(f"Patient {target_id} dosage updated to {new_dosage} mg successfully!")
         else:
-            st.error(f"❌ Patient ID {target_id} not found in any active room.")
+            st.error(f"Patient ID {target_id} not found in any active room.")
 
 # Display Room Status
 col_hp, col_norm = st.columns(2)
 
 # High Priority Room Display
 with col_hp:
-    st.write("🔴 **High Priority Room**")
+    st.write("**High Priority Room**")
     if st.session_state["high_priority_room"]:
         hp_rows = [{"Patient ID": k, "Patient Name": v[0], "Dosage (mg)": v[1]} 
                    for k, v in st.session_state["high_priority_room"].items()]
@@ -127,7 +127,7 @@ with col_hp:
 
 # Normal Room Display
 with col_norm:
-    st.write("🟢 **Normal Room**")
+    st.write("**Normal Room**")
     if st.session_state["normal_room"]:
         norm_rows = [{"Patient ID": k, "Patient Name": v[0], "Dosage (mg)": v[1]} 
                      for k, v in st.session_state["normal_room"].items()]
@@ -145,5 +145,5 @@ if st.button("Apply Changes & Rearrange Patients", type="primary"):
         ui_threshold, 
         ui_bed_limit
     )
-    st.success("✅ Patients successfully redistributed based on updated values!")
+    st.success("Patients successfully redistributed based on updated values!")
     st.rerun()
