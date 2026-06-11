@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("🔍 Clinical Chart Review")
+st.title("Clinical Chart Review")
 st.write("---")
 
 st.info("Medical chart AI summaries and electronic health record (EHR) validation toolsets will load here.")

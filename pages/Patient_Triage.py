@@ -1,8 +1,8 @@
 import streamlit as st
 
-st.title("📋 Patient Triage System")
+st.title("Patient Triage System")
 st.write("---")
-st.header("📥 Patient Data Input")
+st.header("Patient Data Input")
 
 names_raw = st.text_input(
     "Enter Patient Names (separated by commas)", 

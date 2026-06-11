@@ -1,6 +1,8 @@
 import streamlit as st
 
+# Core sorting algorithm for active patient redistribution
 def rearrange(hpRoom, normRoom, safety_threshold, bed_limit):
+    # Demote patients falling below or equal to the safety threshold
     pat_ids_to_move_to_norm = []
     for patID in hpRoom.keys():
         if hpRoom[patID][1] <= safety_threshold:
@@ -9,6 +11,7 @@ def rearrange(hpRoom, normRoom, safety_threshold, bed_limit):
     for patID in pat_ids_to_move_to_norm:
         normRoom[patID] = hpRoom.pop(patID)
 
+    # Promote patients exceeding the threshold if beds are available
     pat_ids_to_move_to_hp = []
     for patID in normRoom.keys():
         if normRoom[patID][1] > safety_threshold:
@@ -33,18 +36,20 @@ st.set_page_config(
     layout="wide"
 )
 
-# Global tracking states
+# Persistent global data stores for tracking patient distribution
 if "high_priority_room" not in st.session_state:
     st.session_state["high_priority_room"] = {}
 if "normal_room" not in st.session_state:
     st.session_state["normal_room"] = {}
 
-# Execute sub-pages immediately and terminate entry script execution
+# Route control checkpoint
 if pg.title != "Main Dashboard":
     pg.run()
     st.stop()
 
-# Fallback layout context for the dashboard home view
+# =========================================================================
+# MAIN DASHBOARD VIEW (Only executes when Main Dashboard is active)
+# =========================================================================
 st.markdown(
     """
     <style>
@@ -57,6 +62,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# Branding Header Section
 col1, col2 = st.columns([1, 4])
 with col1:
     st.image("cliniforge_logo.png", width=90)
@@ -66,11 +72,50 @@ with col2:
 
 st.divider()
 
-st.title("📊 Main Dashboard")
-st.subheader("🏥 Active Room Status Overview")
+st.title("Main Dashboard")
+st.subheader("Active Room Status Overview")
 
+# Parameter Configuration Inputs
+st.write("### Quick Adjustment Controls")
+col_ctrl1, col_ctrl2 = st.columns(2)
+with col_ctrl1:
+    ui_threshold = st.number_input("Adjust Safety Threshold (mg)", min_value=0.0, value=500.0, step=10.0)
+with col_ctrl2:
+    ui_bed_limit = st.number_input("Adjust Bed Limit Capacity", min_value=1, value=2, step=1)
+
+# =========================================================================
+# INDIVIDUAL PATIENT DOSAGE OVERRIDE FEATURE
+# =========================================================================
+st.write("### Individual Patient Dosage Override")
+with st.form("override_form", clear_on_submit=True):
+    col_ov1, col_ov2 = st.columns(2)
+    with col_ov1:
+        target_id = st.number_input("Enter Patient ID to update", min_value=100, step=1)
+    with col_ov2:
+        new_dosage = st.number_input("Enter New Dosage (mg)", min_value=0.0, step=10.0)
+        
+    submit_override = st.form_submit_button("Update Patient Dosage")
+    
+    if submit_override:
+        found = False
+        # Look in high priority room
+        if target_id in st.session_state["high_priority_room"]:
+            st.session_state["high_priority_room"][target_id][1] = new_dosage
+            found = True
+        # Look in normal room
+        elif target_id in st.session_state["normal_room"]:
+            st.session_state["normal_room"][target_id][1] = new_dosage
+            found = True
+            
+        if found:
+            st.success(f"✅ Patient {target_id} dosage updated to {new_dosage} mg successfully!")
+        else:
+            st.error(f"❌ Patient ID {target_id} not found in any active room.")
+
+# Display Room Status
 col_hp, col_norm = st.columns(2)
 
+# High Priority Room Display
 with col_hp:
     st.write("🔴 **High Priority Room**")
     if st.session_state["high_priority_room"]:
@@ -80,6 +125,7 @@ with col_hp:
     else:
         st.info("Room is currently empty.")
 
+# Normal Room Display
 with col_norm:
     st.write("🟢 **Normal Room**")
     if st.session_state["normal_room"]:
@@ -88,3 +134,16 @@ with col_norm:
         st.dataframe(norm_rows, use_container_width=True, hide_index=True)
     else:
         st.info("Room is currently empty.")
+
+st.write("")
+
+# Dynamic rearrangement execution trigger
+if st.button("Apply Changes & Rearrange Patients", type="primary"):
+    rearrange(
+        st.session_state["high_priority_room"], 
+        st.session_state["normal_room"], 
+        ui_threshold, 
+        ui_bed_limit
+    )
+    st.success("✅ Patients successfully redistributed based on updated values!")
+    st.rerun()
