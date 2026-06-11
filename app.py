@@ -42,7 +42,7 @@ if st.sidebar.button("🔍 Chart Review", use_container_width=True):
     st.session_state.current_page = "Charts"
 
 st.sidebar.markdown("---")
-st.sidebar.caption("v1.0.0 | Built for Admissions Review")
+st.sidebar.caption("v1.0.3 | More updates coming soon")
 
 
 # 5. Render Page Content based on which button is clicked
