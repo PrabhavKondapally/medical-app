@@ -23,7 +23,6 @@ st.set_page_config(
 )
 
 st.sidebar.title("CliniForge Navigation")
-st.sidebar.write("Welcome to the CliniForge application dashboard built for college admissions review.")
 
 # 1. Creating two columns at the top of your page
 # The [1, 4] ratio makes the logo column narrow and the text column wide
